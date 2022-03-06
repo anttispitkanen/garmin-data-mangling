@@ -1,0 +1,6 @@
+.vscode
+source-data/**
+!source-data/.gitkeep
+output/**
+!output/.gitkeep
+venv
