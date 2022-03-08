@@ -18,15 +18,15 @@ def mangle_df(df: pd.DataFrame) -> pd.DataFrame:
     Out of the dataframe, I need to:
     - Pick only treadmill running since 2022-01-23 (since that's when I started
       keeping the 5k @ 6:00 pace)
-    - For easier visualization in Numbers, sort by date ascending
     - Only pick columns for date and heart rate data
+    - For easier visualization in Numbers, sort by date ascending
     """
-    filtered_rows_df = df[
-        (df["Activity Type"] == "Treadmill Running") & (df["Date"] >= "2022-01-23")
-    ]
-    sorted_rows_df = filtered_rows_df.sort_values(by=["Date"], ascending=True)
-    filtered_columns_df = sorted_rows_df[["Date", "Avg HR", "Max HR"]]
-    return filtered_columns_df
+    return (
+        df.query("`Activity Type` == 'Treadmill Running'")
+        .query("Date >= '2022-01-23'")
+        .filter(["Date", "Avg HR", "Max HR"])
+        .sort_values(by=["Date"], ascending=True)
+    )
 
 
 def parse_args():
