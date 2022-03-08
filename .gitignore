@@ -4,3 +4,5 @@ source-data/**
 output/**
 !output/.gitkeep
 venv
+.pytest_cache
+__pycache__
