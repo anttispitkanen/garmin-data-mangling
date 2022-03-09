@@ -1,7 +1,7 @@
 """Tests for the data mangling functions."""
 import pandas as pd
 
-from .data_mangling import treadmill_runs_5k
+from data_mangling import treadmill_runs_5k
 
 
 def test_treadmill_runs_5k_filters_out_other_activity_types():

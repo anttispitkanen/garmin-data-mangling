@@ -3,7 +3,7 @@ import argparse
 
 import pandas as pd
 
-from .data_mangling import mangle_data_frame
+from data_mangling import mangle_data_frame
 
 
 def read_csv_to_data_frame(file_name: str) -> pd.DataFrame:
