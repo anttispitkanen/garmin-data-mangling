@@ -3,7 +3,7 @@ import argparse
 
 import pandas as pd
 
-from data_mangling import mangle_data_frame
+from data_mangling import Operation, mangle_data_frame
 
 
 def read_csv_to_data_frame(file_name: str) -> pd.DataFrame:
@@ -26,7 +26,13 @@ def parse_args():
     parser.add_argument(
         "-o", "--output", help="path to output file", default="output/Output.csv"
     )
-    parser.add_argument("-O", "--operation", help="operation to perform", required=True)
+    parser.add_argument(
+        "-O",
+        "--operation",
+        help="operation to perform",
+        required=True,
+        choices=[operation.value for operation in Operation],
+    )
     args = parser.parse_args()
     return args
 
