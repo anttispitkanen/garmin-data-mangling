@@ -8,6 +8,7 @@ class Operation(Enum):
     """The supported operations enumerated."""
 
     TREADMILL_RUNS_5K = "treadmill_runs_5k"
+    CLIMBING = "climbing"
 
 
 def mangle_data_frame(operation: Operation, data_frame: pd.DataFrame) -> pd.DataFrame:
@@ -15,6 +16,8 @@ def mangle_data_frame(operation: Operation, data_frame: pd.DataFrame) -> pd.Data
     match (operation):
         case "treadmill_runs_5k":
             return treadmill_runs_5k(data_frame)
+        case "climbing":
+            return climbing(data_frame)
         case _:
             raise ValueError(f"Unknown operation: {operation}")
 
@@ -30,6 +33,19 @@ def treadmill_runs_5k(data_frame: pd.DataFrame) -> pd.DataFrame:
     return (
         data_frame.query("`Activity Type` == 'Treadmill Running'")
         .query("Date >= '2022-01-23'")
+        .filter(["Date", "Avg HR", "Max HR"])
+        .sort_values(by=["Date"], ascending=True)
+    )
+
+
+def climbing(data_frame: pd.DataFrame) -> pd.DataFrame:
+    """
+    - Filter only climbing activities
+    - Only pick columns for date and heart rate data
+    - For easier visualization in Numbers, sort by date ascending
+    """
+    return (
+        data_frame.query("`Activity Type` == 'Indoor Climbing'")
         .filter(["Date", "Avg HR", "Max HR"])
         .sort_values(by=["Date"], ascending=True)
     )
